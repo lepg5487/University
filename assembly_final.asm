@@ -1,4 +1,4 @@
-TITLE	25¦C80¦æ
+TITLE	25åˆ—80è¡Œ
 ;--------------------------------------------------------------------------------------------------------------------------------------------------------------
 Start		MACRO		
 			ASSUME	SS:STACK,DS:DATASEG,CS:CODESEG,ES:CODESEG
@@ -8,41 +8,41 @@ Start		MACRO
 ENDM
 ;--------------------------------------------------------------------------------------------------------------------------------------------------------------
 Clear		MACRO
-			MOV     AX,0600H        ;¿Ã¹õ¦V¤W±²°Ê
-			MOV     BH,07H			;Äİ©Ê¶Â¥Õ
-			MOV     CX,0000H		;¥ª¤W¨¤
-			MOV     DX,184FH		;¥k¤U¨¤
+			MOV     AX,0600H        ;è¢å¹•å‘ä¸Šæ²å‹•
+			MOV     BH,07H			;å±¬æ€§é»‘ç™½
+			MOV     CX,0000H		;å·¦ä¸Šè§’
+			MOV     DX,184FH		;å³ä¸‹è§’
 			INT     10H
 ENDM
 ;--------------------------------------------------------------------------------------------------------------------------------------------------------------
 Setxy		MACRO	X,Y
-			MOV		AH,02H			;³]©w´å¼Ğ¦ì¸m
+			MOV		AH,02H			;è¨­å®šæ¸¸æ¨™ä½ç½®
 			MOV		BH,00
-			MOV		DH,Y			;¦C
-			MOV		DL,X			;¦æ
+			MOV		DH,Y			;åˆ—
+			MOV		DL,X			;è¡Œ
 			INT		10H
 ENDM
 ;--------------------------------------------------------------------------------------------------------------------------------------------------------------
 Show		MACRO	Msg
-			LEA		DX,Msg			;Åã¥Ü°T®§
-			MOV		AH,09H			;Åã¥Ü¦b $ ²Å¸¹¥H«eªº¦r¦ê
+			LEA		DX,Msg			;é¡¯ç¤ºè¨Šæ¯
+			MOV		AH,09H			;é¡¯ç¤ºåœ¨ $ ç¬¦è™Ÿä»¥å‰çš„å­—ä¸²
 			INT		21H	
 ENDM
 ;--------------------------------------------------------------------------------------------------------------------------------------------------------------
 Input		MACRO
-			MOV		AH,00H			;µ¥«İ¿é¤J AH=scan code, AL=ASCII
+			MOV		AH,00H			;ç­‰å¾…è¼¸å…¥ AH=scan code, AL=ASCII
 			INT		16H
 ENDM
 ;--------------------------------------------------------------------------------------------------------------------------------------------------------------		
 Exit		MACRO
-			MOV     AX,4C00H		;µ²§ôµ{¦¡
+			MOV     AX,4C00H		;çµæŸç¨‹å¼
 			INT		21H
 ENDM
 ;--------------------------------------------------------------------------------------------------------------------------------------------------------------
 HChar		MACRO	Char
 			MOV     AH,09H			
 			MOV		AL,Char
-			MOV		BX,0070H		;¤Ï¥Õ
+			MOV		BX,0070H		;åç™½
 			MOV		CX,01
 			INT		10H
 ENDM
@@ -50,20 +50,20 @@ ENDM
 LChar		MACRO	Count
 			MOV     AH,09H			
 			MOV		AL,' '
-			MOV		BX,0007H		;¤Ï¶Â
+			MOV		BX,0007H		;åé»‘
 			MOV		CX,Count
 			INT		10H
 ENDM
 ;--------------------------------------------------------------------------------------------------------------------------------------------------------------
 Savexy		MACRO	X,Y
-			MOV		DL,X		;¦s®y¼Ğ
+			MOV		DL,X		;å­˜åº§æ¨™
 			MOV		DH,Y
-			MOV		[DI],DL		;¦s®y¼Ğ
+			MOV		[DI],DL		;å­˜åº§æ¨™
 			MOV		[SI],DH
 ENDM
 ;--------------------------------------------------------------------------------------------------------------------------------------------------------------
 PrintDL		MACRO
-			MOV		AH,02H			;·|±NDL¼È¦s¾¹ªº¤º®e¦L¨ì¿Ã¹õ¤W
+			MOV		AH,02H			;æœƒå°‡DLæš«å­˜å™¨çš„å…§å®¹å°åˆ°è¢å¹•ä¸Š
 			MOV		DL,AL
 			INT		21H
 ENDM
@@ -83,8 +83,8 @@ DATASEG SEGMENT	PARA 'Data'
 		Msg4	DB	'Insert','$'
 		Msg5	DB	'NumLock','$'
 		Msg6	DB	'Caps','$' 
-		Savex	DB	02				;¥Ø«e´å¼Ğ X ®y¼Ğ
-		Savey	DB	00				;¥Ø«e´å¼Ğ Y ®y¼Ğ
+		Savex	DB	02				;ç›®å‰æ¸¸æ¨™ X åº§æ¨™
+		Savey	DB	00				;ç›®å‰æ¸¸æ¨™ Y åº§æ¨™
 
 DATASEG ENDS
 ;--------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -92,20 +92,20 @@ CODESEG SEGMENT PARA 'Code'
 Main	PROC	FAR		
 		LEA		SI,Savey
 		LEA		DI,Savex					
-		Start					;¼È¦s¾¹ªì©l¤Æ
-		Clear					;²M°£¿Ã¹õ	
-		Setxy	00,00			;Åã¥Ü¥\¯à¦C
+		Start					;æš«å­˜å™¨åˆå§‹åŒ–
+		Clear					;æ¸…é™¤è¢å¹•	
+		Setxy	00,00			;é¡¯ç¤ºåŠŸèƒ½åˆ—
 		Show	Msg2
-		Setxy	00,01			;Åã¥Ü¤W¤À¹j½u
+		Setxy	00,01			;é¡¯ç¤ºä¸Šåˆ†éš”ç·š
 		Show	Msg1
-		Setxy	00,23			;Åã¥Ü¤U¤À¹j½u
+		Setxy	00,23			;é¡¯ç¤ºä¸‹åˆ†éš”ç·š
 		Show	Msg1
-		Setxy	43,24			;Åã¥Üª¬ºA¦C
+		Setxy	43,24			;é¡¯ç¤ºç‹€æ…‹åˆ—
 		Show	Msg3
-		Setxy	00,02			;³]©wªì©l´å¼Ğ¦ì¸m
+		Setxy	00,02			;è¨­å®šåˆå§‹æ¸¸æ¨™ä½ç½®
 
 A10:	
-		Input					;¿é¤J
+		Input					;è¼¸å…¥
 
 		CMP     AH,1EH          ;a	
         JE      Printcom								
@@ -160,13 +160,13 @@ A10:
 		CMP     AH,2CH          ;z
         JE      Printcom
 ;-------------------------------------------------------------------------------------
-		CMP		AH,48H		;AH = scan code = 4DH, ¤W
+		CMP		AH,48H		;AH = scan code = 4DH, ä¸Š
 		JE		Up
-		CMP		AH,50H		;AH = scan code = 4DH, ¤U
+		CMP		AH,50H		;AH = scan code = 4DH, ä¸‹
 		JE		Down
-		CMP		AH,4BH		;AH = scan code = 4DH, ¥ª
+		CMP		AH,4BH		;AH = scan code = 4DH, å·¦
 		JE		Left
-		CMP		AH,4DH		;AH = scan code = 4DH, ¥k
+		CMP		AH,4DH		;AH = scan code = 4DH, å³
 		JE		Right
 		CMP		AH,47H		;AH = scan code = 4DH, Home
 		JE		Home
@@ -196,7 +196,7 @@ Up:
 		CMP		DH,02H
 		JE		Stop
 		DEC		DH
-		MOV		[DI],DH				;¦s®y¼Ğ
+		MOV		[DI],DH				;å­˜åº§æ¨™
 		MOV		[SI],DL
 		Setxy	[SI],[DI]
 		JMP		A10
@@ -206,7 +206,7 @@ Down:
 		CMP		DH,22
 		JE		Stop
 		INC		DH
-		MOV		[DI],DH				;¦s®y¼Ğ
+		MOV		[DI],DH				;å­˜åº§æ¨™
 		MOV		[SI],DL
 		Setxy	[SI],[DI]
 		JMP		A10
@@ -216,7 +216,7 @@ Left:
 		CMP		DL,00H
 		JE		Stop
 		DEC		DL
-		MOV		[DI],DH				;¦s®y¼Ğ
+		MOV		[DI],DH				;å­˜åº§æ¨™
 		MOV		[SI],DL
 		Setxy	[SI],[DI]
 		JMP		A10
@@ -235,7 +235,7 @@ Right:
 		CMP		DL,4FH
 		JE		Stop
 		INC		DL
-		MOV		[DI],DH				;¦s®y¼Ğ
+		MOV		[DI],DH				;å­˜åº§æ¨™
 		MOV		[SI],DL
 		Setxy	[SI],[DI]
 		JMP		A10
@@ -247,7 +247,7 @@ RightEsc:
 		CMP		DL,19
 		JE		EscCode3
 		JMP		A10
-Stop:								;¤W¤U¥ª¥k¤£¯à¶W¹Lµøµ¡
+Stop:								;ä¸Šä¸‹å·¦å³ä¸èƒ½è¶…éè¦–çª—
 		JMP		A10
 
 Home:	
@@ -267,7 +267,7 @@ PageDown:
 Insert:		
 		CMP		BL,70H
 		JE		InsertBack
-		Setxy	43,24				;¤Ï¥ÕInsert
+		Setxy	43,24				;åç™½Insert
 		HChar	49H
 		Setxy	44,24
 		HChar	6EH
@@ -306,7 +306,7 @@ reNumLockBack:
 EscCode:
 		CMP		DH,00H
 		JE		EscCodeBack
-		Setxy	00,00			;Copy   ¶ÂÅÜ¥Õ
+		Setxy	00,00			;Copy   é»‘è®Šç™½
 		HChar	43H
 		Setxy	01,00
 		HChar	6FH
@@ -316,12 +316,12 @@ EscCode:
 		HChar	79H
 		JMP		A10
 EscCode1:
-		Setxy	00,00			;Copy  ¥ÕÅÜ¶Â
+		Setxy	00,00			;Copy  ç™½è®Šé»‘
 		LChar	04				
 		Setxy	00,00			
 		Show	Msg2
 
-		Setxy	8,00			;Cut   ¶ÂÅÜ¥Õ
+		Setxy	8,00			;Cut   é»‘è®Šç™½
 		HChar	43H
 		Setxy	9,00
 		HChar	75H
@@ -329,12 +329,12 @@ EscCode1:
 		HChar	74H
 		JMP		A10
 EscCode2:
-		Setxy	08,00			;Cut ¥ÕÅÜ¶Â
+		Setxy	08,00			;Cut ç™½è®Šé»‘
 		LChar	03				
 		Setxy	00,00
 		Show	Msg2
 
-		Setxy	15,00			;Paste ¶ÂÅÜ¥Õ
+		Setxy	15,00			;Paste é»‘è®Šç™½
 		HChar	50H
 		Setxy	16,00
 		HChar	61H
@@ -346,12 +346,12 @@ EscCode2:
 		HChar	65H
 		JMP		A10
 EscCode3:
-		Setxy	15,00			;Paste ¥ÕÅÜ¶Â
+		Setxy	15,00			;Paste ç™½è®Šé»‘
 		LChar	05				
 		Setxy	00,00
 		Show	Msg2
 	
-		Setxy	24,00			;Exit  ¶ÂÅÜ¥Õ
+		Setxy	24,00			;Exit  é»‘è®Šç™½
 		HChar	45H
 		Setxy	25,00
 		HChar	78H
@@ -359,17 +359,17 @@ EscCode3:
 		HChar	69H
 		Setxy	27,00
 		HChar	74H
-		Input					;¿é¤J
+		Input					;è¼¸å…¥
 		CMP		AH,1CH			;AH = scan code = 1CH, Enter
 		JE		EnterCode
 		JMP		A10
 EscCode4:
-		Setxy	24,00			;Exit  ¥ÕÅÜ¶Â
+		Setxy	24,00			;Exit  ç™½è®Šé»‘
 		LChar	04				
 		Setxy	00,00			
 		Show	Msg2
 
-		Setxy	15,00			;Paste ¶ÂÅÜ¥Õ
+		Setxy	15,00			;Paste é»‘è®Šç™½
 		HChar	50H
 		Setxy	16,00
 		HChar	61H
@@ -381,12 +381,12 @@ EscCode4:
 		HChar	65H
 		JMP		A10
 EscCode5:
-		Setxy	15,00			;Paste ¥ÕÅÜ¶Â
+		Setxy	15,00			;Paste ç™½è®Šé»‘
 		LChar	05				
 		Setxy	00,00
 		Show	Msg2
 
-		Setxy	8,00			;Cut   ¶ÂÅÜ¥Õ
+		Setxy	8,00			;Cut   é»‘è®Šç™½
 		HChar	43H
 		Setxy	9,00
 		HChar	75H
@@ -394,12 +394,12 @@ EscCode5:
 		HChar	74H
 		JMP		A10
 EscCode6:
-		Setxy	08,00			;Cut ¥ÕÅÜ¶Â
+		Setxy	08,00			;Cut ç™½è®Šé»‘
 		LChar	03				
 		Setxy	00,00
 		Show	Msg2
 
-		Setxy	00,00			;Copy   ¶ÂÅÜ¥Õ
+		Setxy	00,00			;Copy   é»‘è®Šç™½
 		HChar	43H
 		Setxy	01,00
 		HChar	6FH
@@ -409,9 +409,9 @@ EscCode6:
 		HChar	79H
 		JMP		A10
 EscCodeBack:
-		Setxy	00,00			;«ö¤G¦¸ESC ²Ä¤@¦C¥ş³¡²MªÅ¤Ï¶Â
+		Setxy	00,00			;æŒ‰äºŒæ¬¡ESC ç¬¬ä¸€åˆ—å…¨éƒ¨æ¸…ç©ºåé»‘
 		LChar	30
-		Show	Msg2			;«ö¤G¦¸ESC ­«·s¿é¥X¥\¯à¦C
+		Show	Msg2			;æŒ‰äºŒæ¬¡ESC é‡æ–°è¼¸å‡ºåŠŸèƒ½åˆ—
 		Setxy	[SI],[DI]
 		JMP		A10
 
@@ -421,7 +421,7 @@ BackSpace:
 		CMP		DL,00H
 		JE		Stop
 		DEC		DL
-		MOV		[DI],DH			;¦s®y¼Ğ
+		MOV		[DI],DH			;å­˜åº§æ¨™
 		MOV		[SI],DL
 		Setxy	[SI],[DI]
 		LChar	01
@@ -437,7 +437,7 @@ EnterCode1:
 		CMP		DH,00
 		JE		Stop
 		INC		DH
-		MOV		DL,00H		;®y¼Ğ³]¨ì³Ì¥ªÃä
+		MOV		DL,00H		;åº§æ¨™è¨­åˆ°æœ€å·¦é‚Š
 		MOV		[DI],DH
 		MOV		[SI],DL
 		Setxy	[SI],[DI]
@@ -450,25 +450,25 @@ EnterCode:
 Printcom:	
 		CMP		DH,00H
 		JE		Stop
-		CMP		DL,4FH		;¬O§_¨ì³Ì¥kÃä¤F
-		JE		Printdown	;¨ì³Ì¥kÃä®É®y¼Ğ²¾¨ì¤U¤@¦Cªº³Ì¥ªÃä
-		JNE		Print		;¨S¦³¨ì³Ì¥kÃä®Éª½±µ¦æ®y¼Ğ+1 ©M ¦L¥X¿é¤J
+		CMP		DL,4FH		;æ˜¯å¦åˆ°æœ€å³é‚Šäº†
+		JE		Printdown	;åˆ°æœ€å³é‚Šæ™‚åº§æ¨™ç§»åˆ°ä¸‹ä¸€åˆ—çš„æœ€å·¦é‚Š
+		JNE		Print		;æ²’æœ‰åˆ°æœ€å³é‚Šæ™‚ç›´æ¥è¡Œåº§æ¨™+1 å’Œ å°å‡ºè¼¸å…¥
 		
 Print:	
-		INC		DL			;®y¼Ğ©¹¥k
+		INC		DL			;åº§æ¨™å¾€å³
 		MOV		[DI],DH
 		MOV		[SI],DL
-		PrintDL				;·|±NDL¼È¦s¾¹ªº¤º®e¦L¨ì¿Ã¹õ¤W
+		PrintDL				;æœƒå°‡DLæš«å­˜å™¨çš„å…§å®¹å°åˆ°è¢å¹•ä¸Š
 		MOV		DL,[SI]
 		JMP		A10
 
 Printdown:
-		INC		DH			;®y¼Ğ©¹¤U
-		MOV		DL,00H		;®y¼Ğ³]¨ì³Ì¥ªÃä
+		INC		DH			;åº§æ¨™å¾€ä¸‹
+		MOV		DL,00H		;åº§æ¨™è¨­åˆ°æœ€å·¦é‚Š
 		MOV		[DI],DH
 		MOV		[SI],DL
 
-		PrintDL				;·|±NDL¼È¦s¾¹ªº¤º®e¦L¨ì¿Ã¹õ¤W
+		PrintDL				;æœƒå°‡DLæš«å­˜å™¨çš„å…§å®¹å°åˆ°è¢å¹•ä¸Š
 		MOV		DL,[SI]
 		JMP		A10
 
