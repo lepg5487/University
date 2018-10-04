@@ -1,5 +1,5 @@
 # University Program
-# --------------------------------------------
+# ------------------------------------------------------------------
 # assembly_final.asm → 組合語言記事本
 # assembly_final_reduce code version.asm → 精簡版本
 # compiler_final → Lex & Yacc & LLVM
